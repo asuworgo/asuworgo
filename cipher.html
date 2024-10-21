@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to my first Data encryption and decryption system</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        input, textarea {
+            padding: 10px;
+            margin: 10px 0;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        p{
+          font-family: Arial;
+          font-size: 15px;
+          color: #b3d4fc;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <h1>LPA Encryption and Decryption System</h1>
+    <p>Hello everyone, my name is James Acquoi Suworgo.I have created<br>
+      simple system that encrypt and decrypt information for data privacy.
+      <br><br>
+      <a href="mailto:asuworgo@gmail.com" style="text-decoration: none">Email Me</a>
+    </p>
+    <label for="message">Message:</label>
+    <br><br>
+    <textarea id="message" rows="4" cols="50"></textarea><br>
+    <label for="shift">Shift Value:</label>
+    <br><br>
+    <input type="number" id="shift" value="3"><br>
+    <button onclick="encrypt()">Encrypt</button>
+    <button onclick="decrypt()">Decrypt</button>
+    <h3>Result:</h3>
+    <label for="result"></label><textarea id="result" rows="4" cols="50" readonly></textarea>
+
+</center>
+    <script>
+        function encrypt() {
+            const message = document.getElementById("message").value;
+            const shift = parseInt(document.getElementById("shift").value);
+          document.getElementById("result").value = caesarCipher(message, shift);
+        }
+        function decrypt() {
+            const message = document.getElementById("message").value;
+            const shift = parseInt(document.getElementById("shift").value);
+          document.getElementById("result").value = caesarCipher(message, -shift);
+        }
+        function caesarCipher(str, shift) {
+            let result = '';
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                if (char.match(/[a-z]/i)) {
+                    // Get the code of the current character
+                    const charCode = str.charCodeAt(i);
+                    let base = (charCode >= 65 && charCode <= 90) ? 65 : 97;
+                    result += String.fromCharCode(((charCode - base + shift) % 26 + 26) % 26 + base);
+                } else {
+                    result += char; // If it's not a letter, leave it as is
+                }
+            }
+            return result;
+        }
+    </script>
+</body>
+</html>
